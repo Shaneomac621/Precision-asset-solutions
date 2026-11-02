@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Facility Photo + QR Work Order</title>
+
+<style>
+:root{
+  --navy:#123247;
+  --teal:#20a3c3;
+  --light:#eef5f7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#edf2f5;
+  color:#172733;
+}
+header{
+  background:var(--navy);
+  color:white;
+  padding:22px;
+}
+header h1{margin:0 0 8px}
+main{
+  max-width:950px;
+  margin:auto;
+  padding:14px;
+}
+.card{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  margin:14px 0;
+  box-shadow:0 4px 18px #0001;
+}
+h2{color:var(--navy)}
+.grid,.photos{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+label{
+  display:block;
+  font-weight:bold;
+  font-size:13px;
+  margin-top:10px;
+}
+input,textarea,select{
+  width:100%;
+  padding:11px;
+  border:1px solid #94aab6;
+  border-radius:8px;
+  font-size:16px;
+}
+textarea{min-height:90px}
+.photo{
+  background:var(--light);
+  padding:12px;
+  border-radius:10px;
+}
+.photo img{
+  display:block;
+  width:100%;
+  max-height:280px;
+  object-fit:contain;
+  background:white;
+  margin-top:8px;
+}
+button{
+  border:0;
+  border-radius:9px;
+  padding:13px 17px;
+  margin:5px;
+  background:var(--teal);
+  color:white;
+  font-weight:bold;
+}
+.dark{background:var(--navy)}
+.note{
+  font-size:12px;
+  color:#536775;
+}
+.center{text-align:center}
+#qrImage{
+  display:none;
+  width:225px;
+  height:225px;
+  margin:15px auto;
+}
+@media(max-width:650px){
+  .grid,.photos{grid-template-columns:1fr}
+}
+@media print{
+  .actions,.note,input[type=file],#generateButton{
+    display:none!important;
+  }
+  body{background:white}
+  .card{
+    box-shadow:none;
+    border:1px solid #bbb;
+    break-inside:avoid;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Precision Asset Solutions AI</h1>
+<div>Facility Photo + QR Work Order</div>
+</header>
+
+<main>
+
+<section class="card">
+<h2>Work Order Details</h2>
+
+<div class="grid">
+<div><label>Work Order #</label><input id="wo"></div>
+<div><label>Date</label><input id="date" type="date"></div>
+<div><label>Facility / Site</label><input id="site"></div>
+<div><label>Location</label><input id="location"></div>
+<div><label>Asset ID</label><input id="asset"></div>
+<div><label>Asset / System</label><input id="system"></div>
+<div><label>Requested By</label><input id="requested"></div>
+<div><label>Technician</label><input id="technician"></div>
+</div>
+
+<label>Priority</label>
+<select id="priority">
+<option>Emergency</option>
+<option>High</option>
+<option selected>Medium</option>
+<option>Low</option>
+</select>
+
+<label>Problem Description</label>
+<textarea id="problem"></textarea>
+
+<label>Operational Impact / Safety / Access Notes</label>
+<textarea id="impact"></textarea>
+</section>
+
+<section class="card">
+<h2>Before & After Photos</h2>
+
+<p class="note">
+Use the camera only where photography is authorized and safe.
+</p>
+
+<div class="photos">
+
+<div class="photo">
+<strong>Before Photo 1</strong>
+<input type="file" accept="image/*" capture="environment"
+onchange="showPhoto(this,'before1')">
+<img id="before1">
+<label>Caption</label>
+<input id="before1caption">
+</div>
+
+<div class="photo">
+<strong>Before Photo 2</strong>
+<input type="file" accept="image/*" capture="environment"
+onchange="showPhoto(this,'before2')">
+<img id="before2">
+<label>Caption</label>
+<input id="before2caption">
+</div>
+
+<div class="photo">
+<strong>After Photo 1</strong>
+<input type="file" accept="image/*" capture="environment"
+onchange="showPhoto(this,'after1')">
+<img id="after1">
+<label>Caption</label>
+<input id="after1caption">
+</div>
+
+<div class="photo">
+<strong>After Photo 2</strong>
+<input type="file" accept="image/*" capture="environment"
+onchange="showPhoto(this,'after2')">
+<img id="after2">
+<label>Caption</label>
+<input id="after2caption">
+</div>
+
+</div>
+</section>
+
+<section class="card">
+<h2>Completion</h2>
+
+<label>Work Performed / Corrective Action</label>
+<textarea id="action"></textarea>
+
+<div class="grid">
+<div><label>Parts / Materials</label><textarea id="parts"></textarea></div>
+<div><label>Follow-Up Required</label><textarea id="followup"></textarea></div>
+<div><label>Labor Hours</label><input id="hours"></div>
+<div><label>Downtime</label><input id="downtime"></div>
+<div><label>Completion Date</label><input id="completed" type="date"></div>
+<div><label>Verified By</label><input id="verified"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>QR Asset Link</h2>
+
+<label>Destination Web Address</label>
+<input id="qrUrl" type="url"
+placeholder="https://precisionassetsolutionsai.com/photo-work-order.html?asset=RTU-01">
+
+<div class="center">
+<button id="generateButton" onclick="generateQR()">
+Generate QR Code
+</button>
+
+<p id="qrMessage"></p>
+<img id="qrImage" alt="Generated QR code">
+</div>
+
+<p class="note">
+Do not include confidential information in the QR destination address.
+Test every QR code before attaching it to equipment.
+</p>
+</section>
+
+<section class="card actions center">
+<button onclick="saveDraft()">Save Draft</button>
+<button class="dark" onclick="loadDraft()">Load Draft</button>
+<button class="dark" onclick="window.print()">Print / Save PDF</button>
+<button onclick="newWorkOrder()">New Blank</button>
+</section>
+
+<section class="card">
+<strong>Important:</strong>
+This tool supports documentation only. Follow approved safety procedures,
+permits, lockout/tagout requirements, manufacturer instructions, privacy
+rules, and record-retention policies.
+</section>
+
+</main>
+
+<script>
+const photoIds=["before1","before2","after1","after2"];
+
+function showPhoto(input,id){
+  const file=input.files[0];
+  if(!file)return;
+
+  const reader=new FileReader();
+  reader.onload=function(event){
+    document.getElementById(id).src=event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function collectData(){
+  const data={};
+
+  document.querySelectorAll(
+    "input:not([type=file]),textarea,select"
+  ).forEach(function(element){
+    data[element.id]=element.value;
+  });
+
+  photoIds.forEach(function(id){
+    data[id]=document.getElementById(id).src;
+  });
+
+  return data;
+}
+
+function saveDraft(){
+  try{
+    localStorage.setItem(
+      "precisionPhotoWorkOrder",
+      JSON.stringify(collectData())
+    );
+    alert("Draft saved on this device.");
+  }catch(error){
+    alert("Photos may be too large for draft storage. Use Print / Save PDF.");
+  }
+}
+
+function loadDraft(){
+  const saved=localStorage.getItem("precisionPhotoWorkOrder");
+
+  if(!saved){
+    alert("No saved draft was found.");
+    return;
+  }
+
+  const data=JSON.parse(saved);
+
+  Object.keys(data).forEach(function(id){
+    const element=document.getElementById(id);
+
+    if(element){
+      if(element.tagName==="IMG"){
+        element.src=data[id];
+      }else{
+        element.value=data[id];
+      }
+    }
+  });
+}
+
+function newWorkOrder(){
+  if(confirm("Start a new blank work order?")){
+    localStorage.removeItem("precisionPhotoWorkOrder");
+    location.reload();
+  }
+}
+
+function generateQR(){
+  const url=document.getElementById("qrUrl").value.trim();
+  const image=document.getElementById("qrImage");
+  const message=document.getElementById("qrMessage");
+
+  if(!url){
+    message.textContent="Enter a destination web address first.";
+    image.style.display="none";
+    return;
+  }
+
+  try{
+    new URL(url);
+  }catch(error){
+    message.textContent="Enter a complete address beginning with https://";
+    image.style.display="none";
+    return;
+  }
+
+  image.onload=function(){
+    image.style.display="block";
+    message.textContent="QR code ready. Scan it with another device to test.";
+  };
+
+  image.onerror=function(){
+    image.style.display="none";
+    message.textContent="QR code could not load. Check your internet connection.";
+  };
+
+  image.src=
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+
+    encodeURIComponent(url);
+}
+
+const parameters=new URLSearchParams(location.search);
+
+if(parameters.get("asset")){
+  document.getElementById("asset").value=parameters.get("asset");
+}
+
+if(parameters.get("location")){
+  document.getElementById("location").value=parameters.get("location");
+}
+
+document.getElementById("date").valueAsDate=new Date();
+</script>
+
+</body>
+</html>
