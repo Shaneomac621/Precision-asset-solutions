@@ -1,115 +1,1192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Assistant | Precision Asset Solutions AI</title>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Free AI-powered maintenance and facility management prompt generators from Precision Asset Solutions AI."
+  >
+
+  <title>AI Assistant | Precision Asset Solutions AI</title>
+
+  <style>
+    :root {
+      --navy: #111827;
+      --navy-light: #1f2937;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --green: #15803d;
+      --green-dark: #166534;
+      --gray-background: #f3f4f6;
+      --gray-border: #d1d5db;
+      --gray-text: #4b5563;
+      --white: #ffffff;
+      --red: #b91c1c;
+      --shadow: 0 10px 25px rgba(17, 24, 39, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--gray-background);
+      color: var(--navy);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page-container {
+      width: min(1100px, calc(100% - 30px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .hero {
+      padding: 50px 30px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, #111827 0%, #1e3a8a 60%, #2563eb 100%);
+      color: var(--white);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.15;
+    }
+
+    .hero h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.15rem, 3vw, 1.6rem);
+      font-weight: normal;
+      color: #dbeafe;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    .notice {
+      margin: 22px 0;
+      padding: 16px 18px;
+      border-left: 5px solid var(--blue);
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #1e3a8a;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .tool-card {
+      margin-top: 24px;
+      padding: 30px;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .tool-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .tool-icon {
+      flex: 0 0 auto;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .tool-heading h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .tool-description {
+      margin: 0 0 22px;
+      color: var(--gray-text);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .form-group {
+      min-width: 0;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    .optional {
+      color: var(--gray-text);
+      font-size: 0.85rem;
+      font-weight: normal;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--gray-border);
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--navy);
+      font: inherit;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--blue);
+      outline: 3px solid rgba(37, 99, 235, 0.15);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .output {
+      min-height: 280px;
+      margin-top: 8px;
+      background: #f9fafb;
+      font-family: "Courier New", Courier, monospace;
+      white-space: pre-wrap;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: bold;
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    .primary-button {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .primary-button:hover {
+      background: var(--blue-dark);
+    }
+
+    .copy-button {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .copy-button:hover {
+      background: var(--green-dark);
+    }
+
+    .secondary-button {
+      border: 1px solid var(--gray-border);
+      background: #e5e7eb;
+      color: var(--navy);
+    }
+
+    .clear-button {
+      border: 1px solid #fecaca;
+      background: #fee2e2;
+      color: var(--red);
+    }
+
+    .status-message {
+      min-height: 24px;
+      margin: 8px 0 0;
+      color: var(--green-dark);
+      font-weight: bold;
+    }
+
+    .tip {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 9px;
+      background: #f9fafb;
+      color: var(--gray-text);
+      font-size: 0.95rem;
+    }
+
+    .steps {
+      margin-top: 24px;
+      padding: 26px 30px;
+      border-radius: 18px;
+      background: var(--navy-light);
+      color: var(--white);
+    }
+
+    .steps h2 {
+      margin-top: 0;
+    }
+
+    .steps ol {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .steps li {
+      margin-bottom: 8px;
+    }
+
+    .home-link-container {
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .home-link {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 9px;
+      background: var(--blue);
+      color: var(--white);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .home-link:hover {
+      background: var(--blue-dark);
+    }
+
+    footer {
+      padding: 20px;
+      border-top: 1px solid var(--gray-border);
+      color: var(--gray-text);
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .page-container {
+        width: min(100% - 20px, 1100px);
+        padding-top: 10px;
+      }
+
+      .hero {
+        padding: 36px 20px;
+        border-radius: 14px;
+      }
+
+      .tool-card {
+        padding: 22px 18px;
+        border-radius: 14px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full-width {
+        grid-column: auto;
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
-<body style="font-family: Arial, sans-serif; max-width: 1000px; margin:auto; padding:20px; background:#f4f6f8;">
+<body>
+  <main class="page-container">
 
-<div style="background:#1f2937;color:white;padding:40px;border-radius:15px;text-align:center;">
+    <header class="hero">
+      <div class="hero-badge">Free AI Maintenance Tools</div>
 
-<h1>🤖 Precision Asset Solutions AI Assistant</h1>
+      <h1>🤖 Precision Asset Solutions AI Assistant</h1>
 
-<h2>Your Digital Maintenance & Facility Management Copilot</h2>
+      <h2>Your Digital Maintenance & Facility Management Copilot</h2>
 
-<p>
-Use these AI-powered prompts with ChatGPT or Microsoft Copilot to improve maintenance planning, inspections, reporting, asset management, and operational decision-making.
-</p>
+      <p>
+        Enter your maintenance information, generate a professional AI prompt,
+        and copy the completed prompt into ChatGPT or Microsoft Copilot.
+      </p>
+    </header>
 
-</div>
+    <section class="notice" aria-label="Instructions">
+      <strong>No special technical experience is required.</strong>
+      Fill in the fields you know. The tool will automatically organize your
+      information into a detailed prompt.
+    </section>
 
-<br>
+    <!-- Maintenance Work Order Generator -->
+    <section class="tool-card">
+      <div class="tool-heading">
+        <div class="tool-icon" aria-hidden="true">🔧</div>
 
-<div style="background:white;padding:25px;border-radius:15px;">
+        <div>
+          <h2>Maintenance Work Order Generator</h2>
+          <p class="tool-description">
+            Create a structured work-order prompt for equipment failures,
+            repairs, safety concerns, and service requests.
+          </p>
+        </div>
+      </div>
 
-<h2>🔧 Maintenance Work Order Generator</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="workEquipment">Equipment or asset</label>
 
-<textarea rows="10" style="width:100%;">
-Create a professional maintenance work order.
+          <input
+            id="workEquipment"
+            type="text"
+            placeholder="Example: XLERATOR hand dryer"
+          >
+        </div>
 
-Equipment:
-[Equipment]
+        <div class="form-group">
+          <label for="workLocation">Location</label>
 
-Location:
-[Location]
+          <input
+            id="workLocation"
+            type="text"
+            placeholder="Example: Men's restroom near receiving"
+          >
+        </div>
 
-Issue:
-[Issue]
+        <div class="form-group">
+          <label for="workPriority">
+            Priority
+            <span class="optional">(optional)</span>
+          </label>
 
-Include:
-- Problem Description
-- Possible Causes
-- Recommended Repairs
-- Safety Considerations
-- Required Materials
-</textarea>
+          <select id="workPriority">
+            <option value="Not specified">Select a priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Emergency">Emergency</option>
+          </select>
+        </div>
 
-</div>
+        <div class="form-group">
+          <label for="workStatus">
+            Current operating status
+            <span class="optional">(optional)</span>
+          </label>
 
-<br>
+          <select id="workStatus">
+            <option value="Not specified">Select equipment status</option>
+            <option value="Still operating">Still operating</option>
+            <option value="Operating poorly">Operating poorly</option>
+            <option value="Out of service">Out of service</option>
+            <option value="Unsafe to operate">Unsafe to operate</option>
+          </select>
+        </div>
 
-<div style="background:white;padding:25px;border-radius:15px;">
+        <div class="form-group full-width">
+          <label for="workIssue">Describe the issue</label>
 
-<h2>📋 Preventive Maintenance Builder</h2>
+          <textarea
+            id="workIssue"
+            placeholder="Example: The hand dryer does not start when the sensor is activated. No sound or airflow is present."
+          ></textarea>
+        </div>
+      </div>
 
-<textarea rows="10" style="width:100%;">
-Create a preventive maintenance schedule for:
+      <div class="button-row">
+        <button
+          class="primary-button"
+          type="button"
+          onclick="generateWorkOrder()"
+        >
+          Generate Work-Order Prompt
+        </button>
 
-Equipment:
-[Equipment]
+        <button
+          class="secondary-button"
+          type="button"
+          onclick="loadWorkOrderExample()"
+        >
+          Load Example
+        </button>
 
-Manufacturer:
-[Manufacturer]
+        <button
+          class="copy-button"
+          type="button"
+          onclick="copyPrompt('workOutput', 'workStatusMessage')"
+        >
+          Copy Prompt
+        </button>
 
-Include:
-- Weekly Tasks
-- Monthly Tasks
-- Quarterly Tasks
-- Annual Tasks
-</textarea>
+        <button
+          class="clear-button"
+          type="button"
+          onclick="clearWorkOrder()"
+        >
+          Clear
+        </button>
+      </div>
 
-</div>
+      <label for="workOutput">Generated prompt</label>
 
-<br>
+      <textarea
+        id="workOutput"
+        class="output"
+        readonly
+        placeholder="Your completed work-order prompt will appear here."
+      ></textarea>
 
-<div style="background:white;padding:25px;border-radius:15px;">
+      <p
+        id="workStatusMessage"
+        class="status-message"
+        role="status"
+        aria-live="polite"
+      ></p>
 
-<h2>📊 KPI Analysis Assistant</h2>
+      <div class="tip">
+        <strong>Safety note:</strong>
+        AI-generated troubleshooting information should not replace required
+        lockout/tagout procedures, manufacturer instructions, qualified
+        technicians, or site safety policies.
+      </div>
+    </section>
 
-<textarea rows="10" style="width:100%;">
-Analyze the following KPIs:
+    <!-- Preventive Maintenance Builder -->
+    <section class="tool-card">
+      <div class="tool-heading">
+        <div class="tool-icon" aria-hidden="true">📋</div>
 
-PM Compliance:
-[%]
+        <div>
+          <h2>Preventive Maintenance Builder</h2>
+          <p class="tool-description">
+            Build a detailed preventive-maintenance schedule organized by
+            maintenance frequency.
+          </p>
+        </div>
+      </div>
 
-Downtime Hours:
-[Hours]
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="pmEquipment">Equipment or asset</label>
 
-Open Work Orders:
-[Number]
+          <input
+            id="pmEquipment"
+            type="text"
+            placeholder="Example: Rooftop HVAC unit"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="pmManufacturer">
+            Manufacturer
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="pmManufacturer"
+            type="text"
+            placeholder="Example: Trane"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="pmModel">
+            Model number
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="pmModel"
+            type="text"
+            placeholder="Example: YSC060"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="pmEnvironment">
+            Operating environment
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="pmEnvironment"
+            type="text"
+            placeholder="Example: Retail facility rooftop"
+          >
+        </div>
+
+        <div class="form-group full-width">
+          <label for="pmConcerns">
+            Known concerns or service history
+            <span class="optional">(optional)</span>
+          </label>
+
+          <textarea
+            id="pmConcerns"
+            placeholder="Example: Filters clog quickly, belts squeal occasionally, and the condensate drain has blocked previously."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button
+          class="primary-button"
+          type="button"
+          onclick="generatePM()"
+        >
+          Generate PM Prompt
+        </button>
+
+        <button
+          class="secondary-button"
+          type="button"
+          onclick="loadPMExample()"
+        >
+          Load Example
+        </button>
+
+        <button
+          class="copy-button"
+          type="button"
+          onclick="copyPrompt('pmOutput', 'pmStatusMessage')"
+        >
+          Copy Prompt
+        </button>
+
+        <button
+          class="clear-button"
+          type="button"
+          onclick="clearPM()"
+        >
+          Clear
+        </button>
+      </div>
+
+      <label for="pmOutput">Generated prompt</label>
+
+      <textarea
+        id="pmOutput"
+        class="output"
+        readonly
+        placeholder="Your completed preventive-maintenance prompt will appear here."
+      ></textarea>
+
+      <p
+        id="pmStatusMessage"
+        class="status-message"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </section>
+
+    <!-- KPI Analysis Assistant -->
+    <section class="tool-card">
+      <div class="tool-heading">
+        <div class="tool-icon" aria-hidden="true">📊</div>
+
+        <div>
+          <h2>KPI Analysis Assistant</h2>
+          <p class="tool-description">
+            Turn maintenance performance numbers into a prompt for identifying
+            operational risks, trends, and improvement priorities.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="kpiCompliance">
+            PM compliance percentage
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="kpiCompliance"
+            type="number"
+            min="0"
+            max="100"
+            step="0.1"
+            placeholder="Example: 82"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="kpiDowntime">
+            Downtime hours
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="kpiDowntime"
+            type="number"
+            min="0"
+            step="0.1"
+            placeholder="Example: 36"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="kpiOpenOrders">
+            Open work orders
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="kpiOpenOrders"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Example: 47"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="kpiEmergencyOrders">
+            Emergency work orders
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="kpiEmergencyOrders"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Example: 9"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="kpiPeriod">
+            Reporting period
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="kpiPeriod"
+            type="text"
+            placeholder="Example: October 2026"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="kpiFacility">
+            Facility type
+            <span class="optional">(optional)</span>
+          </label>
+
+          <input
+            id="kpiFacility"
+            type="text"
+            placeholder="Example: Distribution center"
+          >
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button
+          class="primary-button"
+          type="button"
+          onclick="generateKPI()"
+        >
+          Generate KPI Prompt
+        </button>
+
+        <button
+          class="secondary-button"
+          type="button"
+          onclick="loadKPIExample()"
+        >
+          Load Example
+        </button>
+
+        <button
+          class="copy-button"
+          type="button"
+          onclick="copyPrompt('kpiOutput', 'kpiStatusMessage')"
+        >
+          Copy Prompt
+        </button>
+
+        <button
+          class="clear-button"
+          type="button"
+          onclick="clearKPI()"
+        >
+          Clear
+        </button>
+      </div>
+
+      <label for="kpiOutput">Generated prompt</label>
+
+      <textarea
+        id="kpiOutput"
+        class="output"
+        readonly
+        placeholder="Your completed KPI-analysis prompt will appear here."
+      ></textarea>
+
+      <p
+        id="kpiStatusMessage"
+        class="status-message"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </section>
+
+    <section class="steps">
+      <h2>How to Use the AI Assistant</h2>
+
+      <ol>
+        <li>Select the tool that matches your task.</li>
+        <li>Enter the information you currently have.</li>
+        <li>Select the blue generate button.</li>
+        <li>Select “Copy Prompt.”</li>
+        <li>Paste the prompt into ChatGPT or Microsoft Copilot.</li>
+        <li>Review the answer before using it in workplace operations.</li>
+      </ol>
+    </section>
+
+    <div class="home-link-container">
+      <a class="home-link" href="index.html">🏠 Back Home</a>
+    </div>
+
+    <footer>
+      <strong>© 2026 Precision Asset Solutions AI</strong><br>
+      Smarter Maintenance. Better Reliability.
+    </footer>
+
+  </main>
+
+  <script>
+    function getValue(id, fallback = "Not provided") {
+      const element = document.getElementById(id);
+      const value = element.value.trim();
+
+      return value || fallback;
+    }
+
+    function setStatus(id, message, isError = false) {
+      const status = document.getElementById(id);
+      status.textContent = message;
+      status.style.color = isError ? "#b91c1c" : "#166534";
+    }
+
+    function generateWorkOrder() {
+      const equipment = getValue("workEquipment", "");
+      const location = getValue("workLocation", "");
+      const issue = getValue("workIssue", "");
+      const priority = getValue("workPriority");
+      const operatingStatus = getValue("workStatus");
+
+      if (!equipment || !location || !issue) {
+        setStatus(
+          "workStatusMessage",
+          "Please enter the equipment, location, and issue.",
+          true
+        );
+
+        return;
+      }
+
+      const prompt = `Act as an experienced maintenance planner and create a professional maintenance work order using the information below.
+
+EQUIPMENT OR ASSET:
+${equipment}
+
+LOCATION:
+${location}
+
+REPORTED ISSUE:
+${issue}
+
+PRIORITY:
+${priority}
+
+CURRENT OPERATING STATUS:
+${operatingStatus}
+
+Create the response with these sections:
+
+1. Clear work-order title
+2. Problem description
+3. Initial inspection steps
+4. Possible causes, listed from most likely to least likely
+5. Recommended troubleshooting procedure
+6. Recommended repair actions
+7. Safety precautions and hazards
+8. Lockout/tagout considerations
+9. Required tools and materials
+10. Required replacement parts, if applicable
+11. Estimated skill level or trade required
+12. Completion and verification checklist
+13. Technician closeout notes template
+
+Do not invent model-specific specifications. Clearly identify when the manufacturer's manual, site procedures, or a qualified technician must be consulted.`;
+
+      document.getElementById("workOutput").value = prompt;
+
+      setStatus(
+        "workStatusMessage",
+        "Work-order prompt generated. Select “Copy Prompt” to use it."
+      );
+    }
+
+    function loadWorkOrderExample() {
+      document.getElementById("workEquipment").value =
+        "XLERATOR hand dryer";
+
+      document.getElementById("workLocation").value =
+        "Men's restroom near receiving";
+
+      document.getElementById("workPriority").value = "Medium";
+
+      document.getElementById("workStatus").value = "Out of service";
+
+      document.getElementById("workIssue").value =
+        "The hand dryer does not start when the sensor is activated. No sound or airflow is present. The breaker has not yet been checked.";
+
+      generateWorkOrder();
+    }
+
+    function clearWorkOrder() {
+      [
+        "workEquipment",
+        "workLocation",
+        "workIssue",
+        "workOutput"
+      ].forEach(function(id) {
+        document.getElementById(id).value = "";
+      });
+
+      document.getElementById("workPriority").value = "Not specified";
+      document.getElementById("workStatus").value = "Not specified";
+
+      setStatus("workStatusMessage", "");
+    }
+
+    function generatePM() {
+      const equipment = getValue("pmEquipment", "");
+      const manufacturer = getValue("pmManufacturer");
+      const model = getValue("pmModel");
+      const environment = getValue("pmEnvironment");
+      const concerns = getValue("pmConcerns");
+
+      if (!equipment) {
+        setStatus(
+          "pmStatusMessage",
+          "Please enter the equipment or asset.",
+          true
+        );
+
+        return;
+      }
+
+      const prompt = `Act as an experienced reliability and preventive-maintenance planner. Create a preventive-maintenance program using the information below.
+
+EQUIPMENT OR ASSET:
+${equipment}
+
+MANUFACTURER:
+${manufacturer}
+
+MODEL NUMBER:
+${model}
+
+OPERATING ENVIRONMENT:
+${environment}
+
+KNOWN CONCERNS OR SERVICE HISTORY:
+${concerns}
+
+Organize the preventive-maintenance program into:
+
+1. Pre-use or operator inspections
+2. Weekly tasks
+3. Monthly tasks
+4. Quarterly tasks
+5. Semiannual tasks
+6. Annual tasks
+7. Condition-based maintenance recommendations
+
+For each task, include:
+
+- Task description
+- Recommended frequency
+- Required tools or materials
+- Safety precautions
+- Expected completion time
+- Pass/fail acceptance criteria
+- Warning signs requiring escalation
+- Recommended documentation
+
+Also include:
+
+- Suggested replacement-parts inventory
+- Common failure modes
+- A sample PM completion checklist
+- Situations requiring a qualified technician
+
+Do not invent manufacturer requirements. Mark any task that must be verified against the manufacturer's operation and maintenance manual.`;
+
+      document.getElementById("pmOutput").value = prompt;
+
+      setStatus(
+        "pmStatusMessage",
+        "Preventive-maintenance prompt generated. Select “Copy Prompt” to use it."
+      );
+    }
+
+    function loadPMExample() {
+      document.getElementById("pmEquipment").value =
+        "Rooftop HVAC unit";
+
+      document.getElementById("pmManufacturer").value = "Trane";
+      document.getElementById("pmModel").value = "YSC060";
+
+      document.getElementById("pmEnvironment").value =
+        "Retail facility rooftop";
+
+      document.getElementById("pmConcerns").value =
+        "Filters clog quickly, belts occasionally squeal, and the condensate drain has blocked previously.";
+
+      generatePM();
+    }
+
+    function clearPM() {
+      [
+        "pmEquipment",
+        "pmManufacturer",
+        "pmModel",
+        "pmEnvironment",
+        "pmConcerns",
+        "pmOutput"
+      ].forEach(function(id) {
+        document.getElementById(id).value = "";
+      });
+
+      setStatus("pmStatusMessage", "");
+    }
+
+    function generateKPI() {
+      const complianceValue =
+        document.getElementById("kpiCompliance").value.trim();
+
+      const downtimeValue =
+        document.getElementById("kpiDowntime").value.trim();
+
+      const openOrdersValue =
+        document.getElementById("kpiOpenOrders").value.trim();
+
+      const emergencyOrdersValue =
+        document.getElementById("kpiEmergencyOrders").value.trim();
+
+      if (
+        !complianceValue &&
+        !downtimeValue &&
+        !openOrdersValue &&
+        !emergencyOrdersValue
+      ) {
+        setStatus(
+          "kpiStatusMessage",
+          "Please enter at least one maintenance KPI.",
+          true
+        );
+
+        return;
+      }
+
+      const compliance = complianceValue
+        ? complianceValue + "%"
+        : "Not provided";
+
+      const downtime = downtimeValue
+        ? downtimeValue + " hours"
+        : "Not provided";
+
+      const openOrders = openOrdersValue || "Not provided";
+      const emergencyOrders = emergencyOrdersValue || "Not provided";
+      const period = getValue("kpiPeriod");
+      const facility = getValue("kpiFacility");
+
+      const prompt = `Act as a maintenance and facility-management performance analyst. Analyze the following maintenance KPIs.
+
+FACILITY TYPE:
+${facility}
+
+REPORTING PERIOD:
+${period}
+
+PM COMPLIANCE:
+${compliance}
+
+DOWNTIME:
+${downtime}
+
+OPEN WORK ORDERS:
+${openOrders}
+
+EMERGENCY WORK ORDERS:
+${emergencyOrders}
 
 Provide:
-- Analysis
-- Risks
-- Recommendations
-</textarea>
 
-</div>
+1. Executive summary
+2. Analysis of each available KPI
+3. Operational risks
+4. Possible root causes
+5. Relationships between the KPIs
+6. Immediate corrective actions for the next 7 days
+7. Improvement actions for the next 30 days
+8. Strategic actions for the next 90 days
+9. Recommended KPI targets
+10. Additional information needed for a stronger analysis
+11. A management-ready summary
+12. A prioritized action table with owner, due date, and expected impact
 
-<br>
+Clearly separate confirmed observations from assumptions. Do not invent missing information.`;
 
-<div style="text-align:center;">
-<a href="index.html">🏠 Back Home</a>
-</div>
+      document.getElementById("kpiOutput").value = prompt;
 
-<hr>
+      setStatus(
+        "kpiStatusMessage",
+        "KPI-analysis prompt generated. Select “Copy Prompt” to use it."
+      );
+    }
 
-<p style="text-align:center;color:gray;">
-© 2026 Precision Asset Solutions AI<br>
-Smarter Maintenance. Better Reliability.
-</p>
+    function loadKPIExample() {
+      document.getElementById("kpiCompliance").value = "82";
+      document.getElementById("kpiDowntime").value = "36";
+      document.getElementById("kpiOpenOrders").value = "47";
+      document.getElementById("kpiEmergencyOrders").value = "9";
+      document.getElementById("kpiPeriod").value = "October 2026";
+      document.getElementById("kpiFacility").value =
+        "Distribution center";
 
+      generateKPI();
+    }
+
+    function clearKPI() {
+      [
+        "kpiCompliance",
+        "kpiDowntime",
+        "kpiOpenOrders",
+        "kpiEmergencyOrders",
+        "kpiPeriod",
+        "kpiFacility",
+        "kpiOutput"
+      ].forEach(function(id) {
+        document.getElementById(id).value = "";
+      });
+
+      setStatus("kpiStatusMessage", "");
+    }
+
+    async function copyPrompt(outputId, statusId) {
+      const output = document.getElementById(outputId);
+      const prompt = output.value.trim();
+
+      if (!prompt) {
+        setStatus(
+          statusId,
+          "Generate a prompt before selecting copy.",
+          true
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(prompt);
+
+        setStatus(
+          statusId,
+          "Prompt copied. You can now paste it into ChatGPT or Microsoft Copilot."
+        );
+      } catch (error) {
+        output.focus();
+        output.select();
+        output.setSelectionRange(0, output.value.length);
+
+        const copied = document.execCommand("copy");
+
+        if (copied) {
+          setStatus(
+            statusId,
+            "Prompt copied. You can now paste it into ChatGPT or Microsoft Copilot."
+          );
+        } else {
+          setStatus(
+            statusId,
+            "Copy was blocked by the browser. Select the prompt and copy it manually.",
+            true
+          );
+        }
+      }
+    }
+  </script>
 </body>
 </html>
